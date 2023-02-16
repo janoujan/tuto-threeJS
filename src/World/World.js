@@ -1,5 +1,5 @@
 import { createCamera } from './components/camera.js'
-import { createCube } from './components/cube.js'
+import { createMeshGroup } from './components/meshGroup.js'
 import { createScene } from './components/scene.js'
 import { createTorus } from './components/torus.js'
 import { createLights } from './components/lights.js'
@@ -27,17 +27,18 @@ class World {
 
     const controls = createControls(camera, renderer.domElement)
 
-    const cube = createCube()
-    const light = createLights()
+    const { ambientLight, mainLight } = createLights()
+    
+const meshGroup = createMeshGroup()
 
-    loop.updatables.push(controls)
+    loop.updatables.push(controls, meshGroup)
 
     // disable mesh rotation
-   // loop.updatables.push(cube)
+    // loop.updatables.push(cube)
 
-    scene.add(cube, light)
+    scene.add(mainLight, ambientLight, meshGroup)
 
-    controls.target.copy(cube.position)
+   // controls.target.copy(cube.position)
     // controls.enablePan = false
 
     controls.addEventListener('change', () => {
