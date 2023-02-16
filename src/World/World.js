@@ -4,6 +4,7 @@ import { createScene } from './components/scene.js'
 import { createTorus } from './components/torus.js'
 import { createLights } from './components/lights.js'
 
+import { createControls } from './systems/controls.js'
 import { createRenderer } from './systems/renderer.js'
 import { Resizer } from './systems/Resizer.js'
 import { Loop } from './systems/Loop.js'
@@ -24,12 +25,24 @@ class World {
     loop = new Loop(camera, scene, renderer)
     container.append(renderer.domElement)
 
+    const controls = createControls(camera, renderer.domElement)
+
     const cube = createCube()
     const light = createLights()
 
-    loop.updatables.push(cube)
+    loop.updatables.push(controls)
+
+    // disable mesh rotation
+   // loop.updatables.push(cube)
 
     scene.add(cube, light)
+
+    controls.target.copy(cube.position)
+    // controls.enablePan = false
+
+    controls.addEventListener('change', () => {
+      this.render()
+    })
 
     const resizer = new Resizer(container, camera, renderer)
   }
