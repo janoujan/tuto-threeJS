@@ -18,12 +18,13 @@ function createMeshGroup () {
 
   // create twenty clones of the protoSphere
   // and add each to the group
-  for (let i = 0; i < 1; i += 0.05) {
+  for (let i = 0; i < 1; i += 0.001) {
     const sphere = protoSphere.clone()
 
     // position the spheres on around a circle
     sphere.position.x = Math.cos(2 * Math.PI * i)
     sphere.position.y = Math.sin(2 * Math.PI * i)
+    sphere.position.z = -i * 5
 
     sphere.scale.multiplyScalar(0.01 + i)
 

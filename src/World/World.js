@@ -3,6 +3,7 @@ import { createMeshGroup } from './components/meshGroup.js'
 import { createScene } from './components/scene.js'
 import { createTorus } from './components/torus.js'
 import { createLights } from './components/lights.js'
+import { createAxesHelper, createGridHelper } from './components/helpers.js'
 
 import { createControls } from './systems/controls.js'
 import { createRenderer } from './systems/renderer.js'
@@ -28,8 +29,8 @@ class World {
     const controls = createControls(camera, renderer.domElement)
 
     const { ambientLight, mainLight } = createLights()
-    
-const meshGroup = createMeshGroup()
+
+    const meshGroup = createMeshGroup()
 
     loop.updatables.push(controls, meshGroup)
 
@@ -38,8 +39,11 @@ const meshGroup = createMeshGroup()
 
     scene.add(mainLight, ambientLight, meshGroup)
 
-   // controls.target.copy(cube.position)
+    // controls.target.copy(cube.position)
     // controls.enablePan = false
+
+    // add the helpers to the scene
+    scene.add(createAxesHelper(), createGridHelper())
 
     controls.addEventListener('change', () => {
       this.render()
