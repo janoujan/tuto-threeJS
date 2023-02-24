@@ -1,7 +1,7 @@
 import { createCamera } from './components/camera.js'
 import { createMeshGroup } from './components/meshGroup.js'
 import { createScene } from './components/scene.js'
-import { createTorus } from './components/torus.js'
+import { createCube } from './components/cube.js'
 import { createLights } from './components/lights.js'
 import { createAxesHelper, createGridHelper } from './components/helpers.js'
 import { loadBirds } from './components/birds/birds.js'
@@ -32,19 +32,21 @@ class World {
 
     const { ambientLight, mainLight } = createLights()
 
-    // const meshGroup = createMeshGroup()
+     const meshGroup = createMeshGroup()
 
     const train = new Train()
 
-    loop.updatables.push(controls, train)
+    const cube = new createCube()
+
+    loop.updatables.push(controls, cube)
 
     // disable mesh rotation
-    // loop.updatables.push(cube)
+   //  loop.updatables.push(cube)
 
-    scene.add(mainLight, ambientLight, train)
+    scene.add(mainLight, ambientLight, cube)
 
-    // controls.target.copy(cube.position)
-    // controls.enablePan = false
+     controls.target.copy(cube.position)
+     controls.enablePan = false
 
     // add the helpers to the scene
     scene.add(createAxesHelper(), createGridHelper())
@@ -73,12 +75,12 @@ class World {
   async init () {
     // asynchronous setup here
     // load bird models
-    const { parrot, flamingo, stork } = await loadBirds()
+    // const { parrot, flamingo, stork } = await loadBirds()
 
-    controls.target.copy(parrot.position)
+    // controls.target.copy(parrot.position)
 
-    loop.updatables.push(parrot, flamingo,stork)
-    scene.add(parrot, flamingo, stork)
+    // loop.updatables.push(parrot, flamingo,stork)
+    // scene.add(parrot, flamingo, stork)
   }
 }
 
